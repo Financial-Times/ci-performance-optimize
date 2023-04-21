@@ -100,7 +100,7 @@ parameters:
             type: array
             items:
               type: string
-  filter:
+  filter-branch:
     type: object
     properties:
       branches:
@@ -124,12 +124,6 @@ parameters:
                 type: array
                 items:
                   type: string
-
-
-steps:
-  - filters:
-      <<: *when
-    # ||: *filter-branch
 
 # Define dynamic values for `when` and `filter` properties
 # using CircleCI parameters
@@ -160,3 +154,8 @@ filter-branch: &filter-branch
       changeset:
         includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
         excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
+
+steps:
+  - filters:
+      <<: *when
+      # <<: *filter-branch
