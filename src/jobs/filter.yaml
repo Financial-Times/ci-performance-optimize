@@ -51,10 +51,13 @@ jobs:
     steps:
       - attach-workspace
       - when:
-          <<: *when
           filters:
             branches:
-              only: << parameters.filter.filter-branch.only >>
+              only: << parameters.filter.filter-branch.only || defaults.branches >>
+              condition:
+                and:
+                  includes: << parameters.when.changeset.includes || defaults.changeset_includes >>
+                  excludes: << parameters.when.changeset.excludes || defaults.changeset_excludes >>
 
 # Define the executors that can be used with the orb
 executors:
