@@ -3,6 +3,7 @@ version: 2.1
 description: Filters static files from a project
 name: static-files-filter
 namespace: nazehs
+
 # based on CircleCI parameters
 when: &when
   when_changeset:
@@ -26,29 +27,27 @@ commands:
         type: object
         properties:
           changeset:
-            type: object
-            properties:
-              includes:
-                type: array
-                items:
-                  type: string
-              excludes:
-                type: array
-                items:
-                  type: string
+            type: changeset
+            includes:
+              type: array
+              items:
+                type: string
+            excludes:
+              type: array
+              items:
+                type: string
       filter-branch:
         type: object
-        properties:
-          branches:
-            type: object
-            properties:
-              only:
-                type: array
-                items:
-                  type: string
+        filter-branch:
+          type: object
+          only:
+            type: array
+            items:
+              type: string
     steps:
       - filters:
           <<: *filter-branch
+          # <<: *when
 
 # Define the parameters that can be passed to the orb
 parameters:
@@ -56,26 +55,24 @@ parameters:
     type: object
     properties:
       changeset:
-        type: object
-        properties:
-          includes:
-            type: array
-            items:
-              type: string
-          excludes:
-            type: array
-            items:
-              type: string
-  filter-branch:
+        type: changeset
+        includes:
+          type: array
+          items:
+            type: string
+        excludes:
+          type: array
+          items:
+            type: string
+  filter:
     type: object
     properties:
       branches:
         type: object
-        properties:
-          only:
-            type: array
-            items:
-              type: string
+        only:
+          type: array
+          items:
+            type: string
 
 # Define the jobs that can use the orb
 jobs:
