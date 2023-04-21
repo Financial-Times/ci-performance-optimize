@@ -3,32 +3,32 @@ parameters:
     default: default
     type: executor
   filter:
-      description: Filters static files
-      parameters:
-        when:
-          type: object
-          properties:
-            changeset:
-              type: changeset
-              includes:
-                type: array
-                items:
-                  type: string
-              excludes:
-                type: array
-                items:
-                  type: string
-        filter-branch:
-          type: string
-          filter-branch:
-            type: string
-            only:
+    description: Filters static files
+    parameters:
+      when:
+        type: object
+        properties:
+          changeset:
+            type: changeset
+            includes:
               type: array
               items:
                 type: string
-      steps:
-        - filters:
-            <<: *filter-branch
+            excludes:
+              type: array
+              items:
+                type: string
+      filter-branch:
+        type: string
+        filter-branch:
+          type: string
+          only:
+            type: array
+            items:
+              type: string
+    steps:
+      - filters:
+          <<: *filter-branch
 executor: << parameters.executor >>
 # based on CircleCI parameters
 when: &when
