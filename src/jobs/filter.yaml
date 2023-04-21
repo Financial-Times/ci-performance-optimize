@@ -44,19 +44,19 @@ parameters:
                 includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
                 excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
 
-# Define the jobs that can use the orb
-jobs:
-  filter:
-    steps:
-      - attach-workspace
-      - when:
-          filters:
-            branches:
-              only: << parameters.filter.filter-branch.only || defaults.branches >>
-              condition:
-                and:
-                  includes: << parameters.when.changeset.includes || defaults.changeset_includes >>
-                  excludes: << parameters.when.changeset.excludes || defaults.changeset_excludes >>
+
+executor: << parameters.executor >>
+
+steps:
+  - attach-workspace
+  - when:
+      filters:
+        branches:
+          only: << parameters.filter.filter-branch.only || defaults.branches >>
+          condition:
+            and:
+              includes: << parameters.when.changeset.includes || defaults.changeset_includes >>
+              excludes: << parameters.when.changeset.excludes || defaults.changeset_excludes >>
 
 # Define the executors that can be used with the orb
 executors:
