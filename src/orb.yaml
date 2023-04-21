@@ -37,9 +37,9 @@ commands:
               items:
                 type: string
       filter-branch:
-        type: object
+        type: string
         filter-branch:
-          type: object
+          type: string
           only:
             type: array
             items:
