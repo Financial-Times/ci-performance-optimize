@@ -51,8 +51,3 @@ steps:
               includes: << parameters.when.changeset.includes || defaults.changeset_includes >>
               excludes: << parameters.when.changeset.excludes || defaults.changeset_excludes >>
 
-# Define the executors that can be used with the orb
-executors:
-  default:
-    docker:
-      - image: 'circleci/python:3.9.0'
