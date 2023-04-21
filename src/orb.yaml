@@ -91,7 +91,3 @@ executors:
   default:
     docker:
       - image: 'circleci/python:3.9.0'
-
-# Define the dependencies that the orb requires
-dependencies:
-  - { url: "https://raw.githubusercontent.com/financial-times/next-semantic-version/v0.0.1/commands/next-semantic-version.yml" }
