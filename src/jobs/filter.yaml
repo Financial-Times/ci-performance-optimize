@@ -18,8 +18,8 @@ steps:
       #   only: << parameters.filter-branch >>
       condition:
         equal: [  parameters.filter-branch, << pipeline.git.branch >> ]
-        and:
-          includes: << parameters.includes >>
-          excludes: << parameters.excludes >>
+        # and:
+        #   includes: << parameters.includes >>
+        #   excludes: << parameters.excludes >>
 
 executor: << parameters.executor >>
