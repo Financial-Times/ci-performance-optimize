@@ -15,10 +15,10 @@ steps:
   - attach-workspace
   - checkout
   - when:
-    condition:
-      and:
-        - << parameters.filter-branch >>
-        - << parameters.excludes >>
+      condition:
+        and:
+          - << parameters.filter-branch >>
+          - << parameters.excludes >>
   # - when:
   #     condition:
   #       equal: [  << parameters.filter-branch >> ]
