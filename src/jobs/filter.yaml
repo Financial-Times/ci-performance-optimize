@@ -17,7 +17,7 @@ steps:
         only: << parameters.filter-branch >>
       condition:
         and:
-          includes: << parameters.includes || defaults.includes >>
-          excludes: << parameters.excludes || defaults.excludes >>
+          includes: << parameters.includes >>
+          excludes: << parameters.excludes >>
 
 executor: << parameters.executor >>
