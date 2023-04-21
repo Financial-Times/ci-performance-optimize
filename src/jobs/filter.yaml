@@ -23,6 +23,6 @@ steps:
             condition:
               and:
                 includes: << parameters.includes || defaults.includes >>
-                excludes: << parameters.excludes || defaults.excludes >>
+                excludes: '\<< parameters.excludes || defaults.excludes >>'
 
 executor: << parameters.executor >>
