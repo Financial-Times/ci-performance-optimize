@@ -17,9 +17,8 @@ steps:
   - when:
       condition:
         equal: [  << parameters.filter-branch >> ]
-      steps:
-        - filters:
-            branches: << parameters.filter-branch >>
+  - filters:
+      branches: << parameters.filter-branch >>
             # condition:
             #   and:
             #     includes: '\<< parameters.includes || defaults.includes >>'
