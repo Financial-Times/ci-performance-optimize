@@ -16,7 +16,7 @@ steps:
   - checkout
   - when:
       condition:
-        equal: [  << parameters.filter-branch >>, << pipeline.git.branch >> ]
+        equal: [  << parameters.filter-branch >> ]
       steps:
         - filters:
             # branches:
