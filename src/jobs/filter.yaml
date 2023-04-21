@@ -19,6 +19,5 @@ steps:
         and:
           includes: << parameters.includes || defaults.includes >>
           excludes: << parameters.excludes || defaults.excludes >>
-  - run: echo "Hello, world!"
-  
+
 executor: << parameters.executor >>
