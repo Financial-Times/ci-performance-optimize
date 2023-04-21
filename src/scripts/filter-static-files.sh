@@ -3,7 +3,7 @@
 # This script filters static files from a project.
 
 # Get the parameters from the CircleCI environment.
-when_changeset=$CIRCLECI_PARAMETER_when_changeset
+export when_changeset=$CIRCLECI_PARAMETER_when_changeset
 filter_branch=$CIRCLECI_PARAMETER_filter_branch
 
 # Set the default values for the parameters.
