@@ -21,7 +21,7 @@ orb:
                   type: array
                   items:
                     type: string
-        filter-branch:
+        filter_branch:
           type: object
           properties:
             branches:
@@ -33,7 +33,7 @@ orb:
                     type: string
       steps:
         - filters:
-            <<: *filter-branch
+            <<: *filter_branch
 
 version: 2.1
 
