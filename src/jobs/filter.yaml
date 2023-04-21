@@ -22,7 +22,7 @@ steps:
               only: << pipeline.git.branch >>
             condition:
               and:
-                includes: << parameters.includes || defaults.includes >>
+                includes: '\<< parameters.includes || defaults.includes >>'
                 excludes: '\<< parameters.excludes || defaults.excludes >>'
 
 executor: << parameters.executor >>
