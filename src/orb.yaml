@@ -41,7 +41,7 @@ orbs:
   filter-static-files:
     executor: python
     python-version: "3.9"
-    files:
+    source:
       - filter-static-files.sh
 
 jobs:
@@ -52,6 +52,7 @@ jobs:
       - run:
           name: Filter static files
           command: ./filter-static-files.sh
+          no_output_timeout: 5m
 
 workflows:
   filter-static-files:
