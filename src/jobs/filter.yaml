@@ -6,27 +6,22 @@ parameters:
   filter:
     description: Filters static files
     type: object
-    properties:
-      changeset:
-        type: object
-        properties:
-          includes:
-            type: array
-            items:
-              type: string
-          excludes:
-            type: array
-            items:
-              type: string
+    includes:
+      type: array
+      items:
+        type: string
+    excludes:
+      type: array
+      items:
+        type: string
     filter-branch:
       type: object
-      properties:
-        only:
-          type: array
-          items:
-            type: string
-          default:
-            - all
+      only:
+        type: array
+        items:
+          type: string
+        default:
+          - all
 
   steps:
     - filters:
