@@ -19,11 +19,10 @@ steps:
         equal: [  << parameters.filter-branch >> ]
       steps:
         - filters:
-            # branches:
-            #   only: << pipeline.git.branch >>
-          condition:
-            and:
-              includes: '\<< parameters.includes || defaults.includes >>'
-              excludes: '\<< parameters.excludes || defaults.excludes >>'
+            branches: << parameters.filter-branch >>
+            # condition:
+            #   and:
+            #     includes: '\<< parameters.includes || defaults.includes >>'
+            #     excludes: '\<< parameters.excludes || defaults.excludes >>'
 
 executor: << parameters.executor >>
