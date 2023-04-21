@@ -47,7 +47,6 @@ parameters:
 # Define the jobs that can use the orb
 jobs:
   filter:
-    executor: << parameters.executor >>
     steps:
       - attach-workspace
       - when:
