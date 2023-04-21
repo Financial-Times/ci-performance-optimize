@@ -1,88 +1,83 @@
-# orb declaration
-orb:
-  name: filter-static-files
-  description: Filters static files from a project
-  version: 0.1.0
-  author: nazehs
-  commands:
-    filter:
-      description: Filters static files
-      parameters:
-        when:
-          type: object
-          properties:
-            changeset:
-              type: object
-              properties:
-                includes:
-                  type: array
-                  items:
-                    type: string
-                excludes:
-                  type: array
-                  items:
-                    type: string
-        filter-branch:
-          type: object
-          properties:
-            branches:
-              type: object
-              properties:
-                only:
-                  type: array
-                  items:
-                    type: string
-      steps:
-        - filters:
-            <<: *filter-branch
-
-# CircleCI version
+# Define the orb
 version: 2.1
-
-# orbs
-orbs:
-  filter-static-files:
-    executor: python
-    python-version: "3.9"
-    source:
-      - filter-static-files.sh
-
-# jobs
-jobs:
-  filter-static-files:
-    executor: filter-static-files
+description: Filters static files from a project
+name: filter-static-files
+namespace: nazehs
+# Define the commands in the orb
+commands:
+  filter:
+    description: Filters static files
+    parameters:
+      when:
+        type: object
+        properties:
+          changeset:
+            type: object
+            properties:
+              includes:
+                type: array
+                items:
+                  type: string
+              excludes:
+                type: array
+                items:
+                  type: string
+      filter-branch:
+        type: object
+        properties:
+          branches:
+            type: object
+            properties:
+              only:
+                type: array
+                items:
+                  type: string
     steps:
-      - checkout
-      - run:
-          name: Filter static files
-          command: ./filter-static-files.sh
-          no_output_timeout: 5m
+      - filters:
+          <<: *filter-branch
 
-# workflows
-workflows:
-  filter-static-files:
-    jobs:
-      - filter-static-files
-
-# aliases
-aliases:
-  defaults: &defaults
-    changeset_includes:
-      - '**/*'
-    changeset_excludes:
-      - '**/*.md'
-      - '**/*.txt'
-      - '**/*.png'
-      - '**/*.jpg'
-      - 'docs/**/*'
-      - '*.md'
-    branches:
-      - main
-
-  filter-branch: &filter-branch
-    branches:
-      only: << parameters.filter.filter-branch.branches.only || defaults.branches >>
-    when:
+# Define the parameters that can be passed to the orb
+parameters:
+  when:
+    type: object
+    properties:
       changeset:
-        includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
-        excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
+        type: object
+        properties:
+          includes:
+            type: array
+            items:
+              type: string
+          excludes:
+            type: array
+            items:
+              type: string
+  filter-branch:
+    type: object
+    properties:
+      branches:
+        type: object
+        properties:
+          only:
+            type: array
+            items:
+              type: string
+
+# Define the jobs that can use the orb
+jobs:
+  filter:
+    executor: filter-static-files/default
+    steps:
+      - filter:
+          <<: *when
+          # <<: *filter-branch
+
+# Define the executors that can be used with the orb
+executors:
+  default:
+    docker:
+      - image: 'circleci/python:3.9.0'
+
+# Define the dependencies that the orb requires
+dependencies:
+  - { url: "https://raw.githubusercontent.com/financial-times/next-semantic-version/v0.0.1/commands/next-semantic-version.yml" }
