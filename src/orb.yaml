@@ -1,3 +1,4 @@
+# orb declaration
 orb:
   name: filter-static-files
   description: Filters static files from a project
@@ -31,16 +32,14 @@ orb:
                   type: array
                   items:
                     type: string
-                except:
-                  type: array
-                  items:
-                    type: string
       steps:
         - filters:
             <<: *filter-branch
 
+# CircleCI version
 version: 2.1
 
+# orbs
 orbs:
   filter-static-files:
     executor: python
@@ -48,6 +47,7 @@ orbs:
     source:
       - filter-static-files.sh
 
+# jobs
 jobs:
   filter-static-files:
     executor: filter-static-files
@@ -58,25 +58,31 @@ jobs:
           command: ./filter-static-files.sh
           no_output_timeout: 5m
 
+# workflows
 workflows:
   filter-static-files:
     jobs:
       - filter-static-files
 
-defaults: &defaults
-  changeset_includes:
-    - '**/*'
-  changeset_excludes:
-    - '**/*.md'
-    - '**/*.txt'
-    - '**/*.png'
-    - '**/*.jpg'
-    - 'docs/**/*'
-    - '*.md'
-  branches:
-    - main
+# aliases
+aliases:
+  defaults: &defaults
+    changeset_includes:
+      - '**/*'
+    changeset_excludes:
+      - '**/*.md'
+      - '**/*.txt'
+      - '**/*.png'
+      - '**/*.jpg'
+      - 'docs/**/*'
+      - '*.md'
+    branches:
+      - main
 
-filter-branch: &filter-branch
-  branches:
-    only: << parameters.filter.filter-branch.branches.only || defaults.branches >>
-    except: << parameters.filter.filter-branch.branches.except || [] >>
+  filter-branch: &filter-branch
+    branches:
+      only: << parameters.filter.filter-branch.branches.only || defaults.branches >>
+    when:
+      changeset:
+        includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
+        excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
