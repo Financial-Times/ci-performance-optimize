@@ -6,8 +6,8 @@ description: >
 usage:
   version: 2.1
   orbs:
-    filter-static-files: financial-times/filter-static-files@0.1.0
+    static-files-filter: financial-times/static-files-filter@0.1.0
   workflows:
     use-my-orb:
       jobs:
-        - filter-static-files/filter-static-files
+        - static-files-filter/static-files-filter

@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  filter-static-files: financial-times/filter-static-files@dev:<<pipeline.git.revision>>
+  static-files-filter: financial-times/static-files-filter@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.5
 
 filters: &filters
@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - filter-static-files/greet
+      - static-files-filter/greet
 workflows:
   test-deploy:
     jobs:
@@ -26,7 +26,7 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: financial-times/filter-static-files
+          orb-name: financial-times/static-files-filter
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:

@@ -1,7 +1,7 @@
 # Define the orb
 version: 2
 description: Filters static files from a project
-name: filter-static-files
+name: static-files-filter
 namespace: nazehs
 # based on CircleCI parameters
 when: &when
@@ -80,7 +80,7 @@ parameters:
 # Define the jobs that can use the orb
 jobs:
   filter:
-    executor: filter-static-files/default
+    executor: static-files-filter/default
     steps:
       - filter:
           <<: *when
