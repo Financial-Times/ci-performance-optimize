@@ -14,9 +14,9 @@ parameters:
 steps:
   - attach-workspace
   - checkout
-  - when:
-      condition:
-        equal: [  << parameters.filter-branch >> ]
+  # - when:
+  #     condition:
+  #       equal: [  << parameters.filter-branch >> ]
   # - filters:
   #     branches: << parameters.filter-branch >>
             # condition:
