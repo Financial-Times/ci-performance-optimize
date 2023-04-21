@@ -5,11 +5,11 @@ parameters:
     type: executor
   filter:
     description: Filters static files
-    when:
-      type: object
-      properties:
-        changeset:
-          type: changeset
+    type: object
+    properties:
+      changeset:
+        type: object
+        properties:
           includes:
             type: array
             items:
@@ -18,36 +18,34 @@ parameters:
             type: array
             items:
               type: string
-      filter-branch:
-        type: object
-        properties:
-          only:
-            type: array
-            items:
-              type: string
-            default:
-              - all
+    filter-branch:
+      type: object
+      properties:
+        only:
+          type: array
+          items:
+            type: string
+          default:
+            - all
 
-    steps:
-      - filters:
-          branches:
-            only: << parameters.filter.filter-branch.only >>
-            condition:
-              and:
-                includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
-                excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
-
+  steps:
+    - filters:
+        branches:
+          only: << parameters.filter.filter-branch.only >>
+        condition:
+          and:
+            includes: << parameters.filter.changeset.includes || defaults.changeset_includes >>
+            excludes: << parameters.filter.changeset.excludes || defaults.changeset_excludes >>
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
   - when:
-      filters:
+      filter:
         branches:
           only: << parameters.filter.filter-branch.only || defaults.branches >>
-          condition:
-            and:
-              includes: << parameters.when.changeset.includes || defaults.changeset_includes >>
-              excludes: << parameters.when.changeset.excludes || defaults.changeset_excludes >>
-
+        condition:
+          and:
+            includes: << parameters.filter.changeset.includes || defaults.changeset_includes >>
+            excludes: << parameters.filter.changeset.excludes || defaults.changeset_excludes >>
