@@ -1,8 +1,10 @@
 description: >
   This is a sample executor using Docker and Node. If you want to provide a custom environment in your orb, insert your image here.
   If you do not require an executor, you can simply delete this directory.
+
 docker:
   - image: 'cimg/node:<<parameters.tag>>'
+
 parameters:
   tag:
     default: lts
@@ -16,14 +18,14 @@ parameters:
       List of file patterns to include in the build.
       Defaults to all files ('**/*').
     default:
-      - '**/*'
+      - "**/*"
   excludes:
     type: array
     description: >
       List of file patterns to exclude from the build.
       Defaults to commonly excluded files and directories.
     default:
-      - '**/.txt'
-      - '**/docs'
-      - '**/.md'
-      - docs/**
+      - "**/.txt"
+      - "**/docs"
+      - "**/.md"
+      - "docs/**"
