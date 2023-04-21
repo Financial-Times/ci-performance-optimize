@@ -21,7 +21,7 @@ orb:
                   type: array
                   items:
                     type: string
-        filter_branch:
+        filter-branch:
           type: object
           properties:
             branches:
@@ -31,9 +31,13 @@ orb:
                   type: array
                   items:
                     type: string
+                except:
+                  type: array
+                  items:
+                    type: string
       steps:
         - filters:
-            <<: *filter_branch
+            <<: *filter-branch
 
 version: 2.1
 
@@ -58,3 +62,21 @@ workflows:
   filter-static-files:
     jobs:
       - filter-static-files
+
+defaults: &defaults
+  changeset_includes:
+    - '**/*'
+  changeset_excludes:
+    - '**/*.md'
+    - '**/*.txt'
+    - '**/*.png'
+    - '**/*.jpg'
+    - 'docs/**/*'
+    - '*.md'
+  branches:
+    - main
+
+filter-branch: &filter-branch
+  branches:
+    only: << parameters.filter.filter-branch.branches.only || defaults.branches >>
+    except: << parameters.filter.filter-branch.branches.except || [] >>
