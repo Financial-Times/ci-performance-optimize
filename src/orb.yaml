@@ -1,0 +1,74 @@
+orb:
+  name: filter-static-files
+  description: Filters static files from a project
+  version: 0.1.0
+  author: nazehs
+  commands:
+    filter:
+      description: Filters static files
+      parameters:
+        when:
+          type: object
+          properties:
+            changeset:
+              type: object
+              properties:
+                includes:
+                  type: array
+                  items:
+                    type: string
+                excludes:
+                  type: array
+                  items:
+                    type: string
+        filter-branch:
+          type: object
+          properties:
+            branches:
+              type: object
+              properties:
+                only:
+                  type: array
+                  items:
+                    type: string
+            when:
+              type: object
+              properties:
+                changeset:
+                  type: object
+                  properties:
+                    includes:
+                      type: array
+                      items:
+                        type: string
+                    excludes:
+                      type: array
+                      items:
+                        type: string
+      steps:
+        - filters:
+          <<: *when
+          ||: *filter-branch
+          
+version: 2.1
+
+orbs:
+  filter-static-files:
+    executor: python
+    python-version: "3.9"
+    files:
+      - filter-static-files.sh
+
+jobs:
+  filter-static-files:
+    executor: filter-static-files
+    steps:
+      - checkout
+      - run:
+          name: Filter static files
+          command: ./filter-static-files.sh
+
+workflows:
+  filter-static-files:
+    jobs:
+      - filter-static-files

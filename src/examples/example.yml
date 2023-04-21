@@ -1,0 +1,13 @@
+description: >
+  Sample example description.
+# Provide a use-case based example for using this orb.
+# Everything in the `usage` section will be displayed in the orb registry.
+# Comments are not retained.
+usage:
+  version: 2.1
+  orbs:
+   filter-static-files financial-times/filter-static-files@0.1.0
+  workflows:
+    use-my-orb:
+      jobs:
+        - filter-static-files/filter-static-files

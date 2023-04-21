@@ -1,14 +1,14 @@
 version: 2.1
 
 description: >
-  To prevent static files in your project from triggering the workflow every time they change
+  Filter static files from your project to not trigger workflow when they change
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
 
 # This information will be displayed in the orb registry and is not mandatory.
 display:
-  home_url: "https://www.ft.com"
-  source_url: "https://github.com/financial-times/ci-performance-optimize"
+  home_url: "https://www.example.com/docs"
+  source_url: "https://github.com/<organization>/<project-name>"
 
 # If your orb requires other orbs, you can import them like this. Otherwise remove the "orbs" stanza.
 # orbs:
