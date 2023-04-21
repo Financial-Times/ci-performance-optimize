@@ -3,44 +3,41 @@ parameters:
   executor:
     default: default
     type: executor
-  filter:
-    description: Filters static files
+  includes:
+    type: array
+    items:
+      type: string
+  excludes:
+    type: array
+    items:
+      type: string
+  filter-branch:
     type: object
-    includes:
+    branches:
       type: array
       items:
         type: string
-    excludes:
-      type: array
-      items:
-        type: string
-    filter-branch:
-      type: object
-      only:
-        type: array
-        items:
-          type: string
-        default:
-          - all
+      default:
+        - all
 
   steps:
     - filters:
         branches:
-          only: << parameters.filter.filter-branch.only >>
+          only: << parameters.filter-branch.branches >>
         condition:
           and:
-            includes: << parameters.filter.changeset.includes || defaults.changeset_includes >>
-            excludes: << parameters.filter.changeset.excludes || defaults.changeset_excludes >>
+            includes: << parameters.includes || defaults.includes >>
+            excludes: << parameters.excludes || defaults.excludes >>
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
-  # - when:
-  #     filter:
-  #       branches:
-  #         only: << parameters.filter.filter-branch.only || defaults.branches >>
-  #       condition:
-  #         and:
-  #           includes: << parameters.filter.changeset.includes || defaults.changeset_includes >>
-  #           excludes: << parameters.filter.changeset.excludes || defaults.changeset_excludes >>
+  - when:
+    filter:
+      branches:
+        only: << parameters.filter-branch.branches || defaults.branches >>
+      condition:
+        and:
+          includes: << parameters.includes || defaults.includes >>
+          excludes: << parameters.excludes || defaults.excludes >>
