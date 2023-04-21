@@ -17,8 +17,6 @@ parameters:
       Defaults to all files ('**/*').
     default:
       - '**/*'
-    items:
-      type: string
   excludes:
     type: array
     description: >
@@ -29,5 +27,3 @@ parameters:
       - '**/docs'
       - '**/.md'
       - docs/**
-    items:
-      type: string
