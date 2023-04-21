@@ -1,5 +1,5 @@
 # Define the orb
-version: 2
+version: 2.1
 description: Filters static files from a project
 name: static-files-filter
 namespace: nazehs
