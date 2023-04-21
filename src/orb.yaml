@@ -3,6 +3,20 @@ version: 2.1
 description: Filters static files from a project
 name: filter-static-files
 namespace: nazehs
+# based on CircleCI parameters
+when: &when
+  when_changeset:
+    includes: << parameters.when.when_changeset.includes || defaults.changeset_includes >>
+    excludes: << parameters.when.when_changeset.excludes || defaults.changeset_excludes >>
+
+filter-branch: &filter-branch
+  branches:
+    only: << parameters.filter.branches.only || defaults.branches >>
+    when:
+      changeset:
+        includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
+        excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
+
 # Define the commands in the orb
 commands:
   filter:
