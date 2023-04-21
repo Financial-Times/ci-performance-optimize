@@ -1,16 +1,10 @@
-# based on CircleCI parameters
-when: &when
-  when_changeset:
-    includes: << parameters.when.when_changeset.includes || defaults.changeset_includes >>
-    excludes: << parameters.when.when_changeset.excludes || defaults.changeset_excludes >>
+# Define the orb
+version: 2.1
+description: Filters static files from a project
+name: static-files-filter
+namespace: nazehs
 
-filter-branch: &filter-branch
-  branches:
-    only: << parameters.filter.branches.only || defaults.branches >>
-    when:
-      changeset:
-        includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
-        excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
+# Define the parameters that can be passed to the orb
 parameters:
   executor:
     default: default
@@ -32,19 +26,38 @@ parameters:
               items:
                 type: string
       filter-branch:
-        type: string
-        filter-branch:
-          type: string
+        type: object
+        properties:
           only:
             type: array
             items:
               type: string
+            default:
+              - all
+
     steps:
       - filters:
-          <<: *filter-branch
-executor: << parameters.executor >>
+          branches:
+            only: << parameters.filter.filter-branch.only >>
+            condition:
+              and:
+                includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
+                excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
 
-steps:
-  - attach-workspace
-  - when:
-      <<: *when
+# Define the jobs that can use the orb
+jobs:
+  filter:
+    executor: << parameters.executor >>
+    steps:
+      - attach-workspace
+      - when:
+          <<: *when
+          filters:
+            branches:
+              only: << parameters.filter.filter-branch.only >>
+
+# Define the executors that can be used with the orb
+executors:
+  default:
+    docker:
+      - image: 'circleci/python:3.9.0'
