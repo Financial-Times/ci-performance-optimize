@@ -10,3 +10,24 @@ parameters:
       Pick a specific cimg/node image variant:
       https://hub.docker.com/r/cimg/node/tags
     type: string
+  includes:
+    type: array
+    description: >
+      List of file patterns to include in the build.
+      Defaults to all files ('**/*').
+    default:
+      - '**/*'
+    items:
+      type: string
+  excludes:
+    type: array
+    description: >
+      List of file patterns to exclude from the build.
+      Defaults to commonly excluded files and directories.
+    default:
+      - '**/.txt'
+      - '**/docs'
+      - '**/.md'
+      - docs/**
+    items:
+      type: string
