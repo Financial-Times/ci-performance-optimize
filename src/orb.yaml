@@ -48,8 +48,8 @@ orb:
       steps:
         - filters:
           <<: *when
-          ||: *filter-branch
-          
+          # ||: *filter-branch
+
 version: 2.1
 
 orbs:

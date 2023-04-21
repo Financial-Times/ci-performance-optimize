@@ -48,7 +48,7 @@ parameters:
 steps:
   - filters:
     <<: *when
-    ||: *filter-branch
+    # ||: *filter-branch
 
 # Define dynamic values for `when` and `filter` properties
 # using CircleCI parameters
