@@ -31,24 +31,9 @@ orb:
                   type: array
                   items:
                     type: string
-            when:
-              type: object
-              properties:
-                changeset:
-                  type: object
-                  properties:
-                    includes:
-                      type: array
-                      items:
-                        type: string
-                    excludes:
-                      type: array
-                      items:
-                        type: string
       steps:
         - filters:
-          <<: *when
-          # ||: *filter-branch
+            <<: *filter-branch
 
 version: 2.1
 
