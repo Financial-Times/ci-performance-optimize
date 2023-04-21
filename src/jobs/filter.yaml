@@ -5,20 +5,19 @@ parameters:
     type: executor
   filter:
     description: Filters static files
-    parameters:
-      when:
-        type: object
-        properties:
-          changeset:
-            type: changeset
-            includes:
-              type: array
-              items:
-                type: string
-            excludes:
-              type: array
-              items:
-                type: string
+    when:
+      type: object
+      properties:
+        changeset:
+          type: changeset
+          includes:
+            type: array
+            items:
+              type: string
+          excludes:
+            type: array
+            items:
+              type: string
       filter-branch:
         type: object
         properties:
