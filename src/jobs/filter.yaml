@@ -4,40 +4,21 @@ parameters:
     default: default
     type: executor
   includes:
-    type: array
-    items:
-      type: string
+    type: string
   excludes:
-    type: array
-    items:
-      type: string
+    type: string
   filter-branch:
-    type: object
-    branches:
-      type: array
-      items:
-        type: string
-      default:
-        - all
-
-  steps:
-    - filters:
-        branches:
-          only: << parameters.filter-branch.branches >>
-        condition:
-          and:
-            includes: << parameters.includes || defaults.includes >>
-            excludes: << parameters.excludes || defaults.excludes >>
-
-executor: << parameters.executor >>
+    type: string
+    default: all
 
 steps:
-  - attach-workspace
-  - when:
-    filter:
+  - filters:
       branches:
-        only: << parameters.filter-branch.branches || defaults.branches >>
+        only: << parameters.filter-branch >>
       condition:
         and:
           includes: << parameters.includes || defaults.includes >>
           excludes: << parameters.excludes || defaults.excludes >>
+  - run: echo "Hello, world!"
+  
+executor: << parameters.executor >>
