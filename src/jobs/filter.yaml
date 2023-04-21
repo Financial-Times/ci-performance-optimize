@@ -14,12 +14,15 @@ parameters:
 steps:
   - attach-workspace
   - when:
-      # branches:
-      #   only: << parameters.filter-branch >>
       condition:
         equal: [  parameters.filter-branch, << pipeline.git.branch >> ]
-        # and:
-        #   includes: << parameters.includes >>
-        #   excludes: << parameters.excludes >>
+      steps:
+        - filters:
+            branches:
+              only: << pipeline.git.branch >>
+            condition:
+              and:
+                includes: << parameters.includes || defaults.includes >>
+                excludes: << parameters.excludes || defaults.excludes >>
 
 executor: << parameters.executor >>
