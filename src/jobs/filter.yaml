@@ -12,7 +12,7 @@ parameters:
     default: all
 
 steps:
-  - filters:
+  - filter:
       branches:
         only: << parameters.filter-branch >>
       condition:
