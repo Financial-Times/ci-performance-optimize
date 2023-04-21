@@ -1,3 +1,84 @@
+# description: >
+#   Filter static files from the project
+
+# # What will this job do?
+# executor: default
+
+# parameters:
+#   when:
+#     type: object
+#     properties:
+#       when_changeset:
+#         type: object
+#         properties:
+#           includes:
+#             type: array
+#             items:
+#               type: string
+#           excludes:
+#             type: array
+#             items:
+#               type: string
+#   filter-branch:
+#     type: object
+#     properties:
+#       branches:
+#         type: object
+#         properties:
+#           only:
+#             type: array
+#             items:
+#               type: string
+#       when:
+#         type: object
+#         properties:
+#           changeset:
+#             type: object
+#             properties:
+#               includes:
+#                 type: array
+#                 items:
+#                   type: string
+#               excludes:
+#                 type: array
+#                 items:
+#                   type: string
+
+
+# steps:
+#   - filters:
+#     <<: *when
+#     # ||: *filter-branch
+
+# # Define dynamic values for `when` and `filter` properties
+# # using CircleCI parameters
+# defaults: &defaults
+#   changeset_includes:
+#     - '**/*'
+#   changeset_excludes:
+#     - '**/*.md'
+#     - '**/*.txt'
+#     - '**/*.png'
+#     - '**/*.jpg'
+#     - 'docs/**/*'
+#     - '*.md'
+#   branches:
+#     - main
+
+# # Set dynamic values for `when` and `filter` properties
+# # based on CircleCI parameters
+# when: &when
+#   when_changeset:
+#     includes: << parameters.when.when_changeset.includes || defaults.changeset_includes >>
+#     excludes: << parameters.when.when_changeset.excludes || defaults.changeset_excludes >>
+
+# filter-branch: &filter-branch
+#   branches:
+#     only: << parameters.filter.branches.only || defaults.branches >>
+#     when:
+#       changeset:
+#         includes: << parameters.filter.when.changeset.includes || defaults.changeset_includes >>
+#         excludes: << parameters.filter.when.changeset.excludes || defaults.changeset_excludes >>
 description: >
   Filter static files from the project
 
@@ -19,7 +100,7 @@ parameters:
             type: array
             items:
               type: string
-  filter-branch:
+  filter:
     type: object
     properties:
       branches:
@@ -47,7 +128,7 @@ parameters:
 
 steps:
   - filters:
-    <<: *when
+      <<: *when
     # ||: *filter-branch
 
 # Define dynamic values for `when` and `filter` properties
