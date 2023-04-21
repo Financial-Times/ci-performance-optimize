@@ -12,7 +12,8 @@ parameters:
     default: all
 
 steps:
-  - filter:
+  - attach-workspace
+  - when:
       branches:
         only: << parameters.filter-branch >>
       condition:
